@@ -14,12 +14,12 @@ class QQKey:
             if(key.name == 'pt_local_token'):
                 return key.value
     
-    def uins(self):
+    def getuin(self):
         url='https://localhost.ptlogin2.qq.com:4301/pt_get_uins?callback=ptui_getuins_CB&r=0.21624413130736064&pt_local_tk={}'.format(self.__gettoken())
         res=self.__class__.qiu.open(url)
         uin=json.loads(re.compile('var var_sso_uin_list=(.*?);').findall(str(res.read(),'utf-8'))[0])
         return uin[0]['account']
-    def qqkeys(self):
+    def getqqkey(self):
         url = 'https://localhost.ptlogin2.qq.com:4301/pt_get_st?clientuin={0}&callback=ptui_getst_CB&r=0.810010167110566&pt_local_tk={1}'.format(self.uins(),self.__gettoken()) 
         self.__class__.qiu.open(url)
         for keys in self.__class__.cookies:
